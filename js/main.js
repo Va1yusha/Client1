@@ -7,7 +7,7 @@ let app = new Vue({
         link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
         altText: "A pair of socks",
         inStock: true,
-        onSale: true,
+        onSale: false,
         details: ['80% cotton', '20% polyester', 'Gender-neutral'],
         selectedVariant: 0,
         variants: [
@@ -50,6 +50,9 @@ let app = new Vue({
         },
         inStock(){
             return this.variants[this.selectedVariant].variantQuantity
+        },
+        sale() {
+            return this.onSale ? `${this.brand} ${this.product} on sale!` : `${this.brand} ${this.product} on not sale.`;
         },
     }
 })

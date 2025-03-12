@@ -6,7 +6,7 @@ let app = new Vue({
         link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
         image: "./assets/vmSocks-green-onWhite.jpg",
         altText: "A pair of socks",
-        inStock: true,
+        inStock: false,
         onSale: true,
         details: ['80% cotton', '20% polyester', 'Gender-neutral'],
         variants: [
@@ -22,10 +22,7 @@ let app = new Vue({
             }
         ],
         sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-        cart: 0,
-        updateProduct(variantImage) {
-            this.image = variantImage
-        }
+        cart: 0
     },
     methods: {
         addToCart() {
@@ -36,5 +33,8 @@ let app = new Vue({
                 this.cart -= 1
             }
         },
+        updateProduct(variantImage) {
+            this.image = variantImage
+        }
     }
 })

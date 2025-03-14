@@ -91,14 +91,20 @@ Vue.component('product', {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
         },
-        removeFromCart() {
+        removeFromCart(id) {
+            this.$emit('remove-from-cart');
             if (this.cart > 0) {
-                this.cart -= 1
+                this.cart -= 1;
             }
         },
         updateProduct(index) {
             this.selectedVariant = index;
             console.log(index);
+        },
+        updateRemoveFromCart() {
+            if (this.cart > 0) {
+                this.cart -= 1;
+            }
         }
     },
     computed: {
@@ -132,6 +138,11 @@ let app = new Vue({
     methods: {
         updateCart(id) {
             this.cart.push(id);
+        },
+        updateRemoveFromCart(id) {
+            if (this.cart.length > 0) {
+                this.cart.pop(id);
+            }
         }
     }
 })

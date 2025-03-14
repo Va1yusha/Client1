@@ -29,6 +29,16 @@ Vue.component('product-review', {
      <option>1</option>
    </select>
  </p>
+ 
+ <p>
+    <label>Would you recommend this product?</label>
+    <label>
+      <input type="radio" value="yes" v-model="recommendation"> Yes
+    </label>
+    <label>
+      <input type="radio" value="no" v-model="recommendation"> No
+    </label>
+ </p>
 
  <p>
    <input type="submit" value="Submit"> 
@@ -40,25 +50,30 @@ Vue.component('product-review', {
             name: null,
             review: null,
             rating: null,
+            recommendation: null,
             errors: []
         }
     },
     methods:{
         onSubmit() {
-            if(this.name && this.review && this.rating) {
+            this.errors = [];
+            if(this.name && this.review && this.rating && this.recommendation) {
                 let productReview = {
                     name: this.name,
                     review: this.review,
-                    rating: this.rating
+                    rating: this.rating,
+                    recommendation: this.recommendation
                 }
                 this.$emit('review-submitted', productReview)
                 this.name = null
                 this.review = null
                 this.rating = null
+                this.recommendation = null
             } else {
                 if(!this.name) this.errors.push("Name required.")
                 if(!this.review) this.errors.push("Review required.")
                 if(!this.rating) this.errors.push("Rating required.")
+                if(!this.recommendation) this.errors.push("Recommendation required.")
             }
         }
     },
@@ -126,10 +141,11 @@ Vue.component('product', {
             <h2>Reviews</h2>
             <p v-if="!reviews.length">There are no reviews yet.</p>
             <ul>
-              <li v-for="review in reviews">
+              <li v-for="review in reviews" :key="review.name">
               <p>{{ review.name }}</p>
               <p>Rating: {{ review.rating }}</p>
               <p>{{ review.review }}</p>
+              <p>Recommended: {{ review.recommendation }}</p>
               </li>
             </ul>
         </div>
@@ -225,6 +241,6 @@ let app = new Vue({
             if (this.cart.length > 0) {
                 this.cart.pop(id);
             }
-        }
+        },
     }
 })

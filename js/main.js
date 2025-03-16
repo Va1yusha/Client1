@@ -16,7 +16,7 @@ Vue.component('product-tabs', {
                    <p>{{ review.name }}</p>
                    <p>Rating: {{ review.rating }}</p>
                    <p>{{ review.review }}</p>
-                   <p>{{ review.recommend }}</p>
+                   <p>{{ review.recommendation }}</p>
                </li>
             </ul>
          </div>

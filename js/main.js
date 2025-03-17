@@ -292,7 +292,20 @@ let app = new Vue({
             this.cart.splice(this.cart.indexOf(id), 1);
         },
         addReview(productReview) {
-            this.reviews.push(productReview)
+            const exists = this.reviews.some(review => review.name === productReview.name && review.review === productReview.review);
+            if (!exists) {
+                this.reviews.push(productReview);
+                localStorage.setItem('reviews', JSON.stringify(this.reviews));
+            }
         },
+        loadReviews() {
+            const savedReviews = localStorage.getItem('reviews');
+            if (savedReviews) {
+                this.reviews = JSON.parse(savedReviews);
+            }
+        },
+    },
+    mounted() {
+        this.loadReviews();
     }
 })

@@ -21,7 +21,7 @@ Vue.component('product-tabs', {
             </ul>
          </div>
          <div v-show="selectedTab === 'Make a Review'">
-            <product-review></product-review>
+            <product-review @review-submitted="addReview"></product-review>
          </div>
          <div v-show="selectedTab === 'Shipping'">
             <p>Shipping: {{ shipping }}</p>
@@ -53,15 +53,8 @@ Vue.component('product-tabs', {
     },
     methods: {
         addReview(productReview) {
-            this.reviews.push(productReview);
             this.$emit('add-review', productReview);
         },
-
-    },
-    mounted() {
-        eventBus.$on('review-submitted', productReview => {
-            this.reviews.push(productReview)
-        })
     },
     computed: {
         shipping() {
@@ -138,7 +131,7 @@ Vue.component('product-review', {
                     rating: this.rating,
                     recommendation: this.recommendation
                 }
-                eventBus.$emit('review-submitted', productReview)
+                this.$emit('review-submitted', productReview);
                 this.name = null
                 this.review = null
                 this.rating = null
